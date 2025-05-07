@@ -1,19 +1,28 @@
 const axios = require('axios');
+const redisClient = require('../../config/redis')
 
-exports.getConversion = async (cryptoId) => {
-    try {
-        const url = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl,usd`;
+exports.getConversion = async (cryptoName) => {
+    const cacheKey = `conversion:${cryptoName}`
+    const cached = await redisClient.get(cacheKey)
 
-        const response = await axios.get(url)
-
-        if(!response.data[cryptoId]){
-            throw new Error('Criptomoeda não encontrada na API.');
-        }
-
-        return response.data[cryptoId]
-
-    } catch (error) {
-        throw new Error('Erro ao obter dados da API externa: ' + error.message);
+    if(cached){
+        return JSON.parse(cached)
     }
-    
+
+    const response = await axios.get(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoName}&vs_currencies=brl,usd`
+    );
+
+    if (!response.data[cryptoName]) {
+        throw new Error('Criptomoeda inválida ou não encontrada');
+    }
+
+    const prices = {
+        brl: response.data[cryptoName].brl,
+        usd: response.data[cryptoName].usd
+    }
+
+    await redisClient.setEx(cacheKey, 60, JSON.stringify(prices));
+
+    return prices;
 }

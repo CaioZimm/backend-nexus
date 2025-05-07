@@ -13,8 +13,8 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false
       },
-      cryptoId: {
-        type: Sequelize.BIGINT,
+      cryptoName: {
+        type: Sequelize.STRING,
         allowNull: false
       }
     });

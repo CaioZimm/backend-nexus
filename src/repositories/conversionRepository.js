@@ -1,6 +1,6 @@
 const Conversion = require('../models/Conversion');
 
-exports.conversion = async (conversion) => {
+exports.saveConversion = async (conversion) => {
     try {
         const newConversion = await Conversion.create(conversion)
 
@@ -11,9 +11,9 @@ exports.conversion = async (conversion) => {
     }
 }
 
-exports.history = async (userId) => {
+exports.getHistory = async (userId) => {
     try {
-        const history = await Conversion.findAll({ where: { userId }})
+        const history = await Conversion.findAll({ where: { userId }, order: [['createdAt', 'DESC']]});
 
         if (!history || history.length === 0) {
             throw new Error('Sem histórico até o momento');

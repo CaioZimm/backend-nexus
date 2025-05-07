@@ -26,11 +26,14 @@ app.use(authRoutes)
 const conversionRoutes = require('../src/routes/conversionRoutes')
 app.use(conversionRoutes)
 
-const port = process.env.PORT;
+// Rota - Favoritos
+const favoriteRoutes = require('../src/routes/favoriteRoutes')
+app.use(favoriteRoutes)
 
+const port = process.env.PORT;
 sequelize.authenticate()
     .then(() => { 
-        console.log("Banco conectado com Sequelize."); 
+        console.log("Conectados!"); 
         app.listen(port, () => { 
             console.log(`Servidor rodando na porta ${port}`);
         });

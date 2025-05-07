@@ -10,7 +10,7 @@ exports.registerUser = async (req, res) => {
 
     try {
         const user = await authService.registerUser(name, email, password);
-        const token = jwt.sign({ id: user._id}, process.env.JWT_SECRET, { expiresIn: '1d'});
+        const token = jwt.sign({ id: user.id}, process.env.JWT_SECRET, { expiresIn: '1d'});
 
         return res.status(201).json({ message: 'Usuário criado com sucesso', token, data: user })
 

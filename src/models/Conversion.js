@@ -6,8 +6,8 @@ const Conversion = database.define('Conversion', {
         type: DataTypes.BIGINT,
         allowNull: false
     },
-    cryptoId: {
-        type: DataTypes.BIGINT,
+    cryptoName: {
+        type: DataTypes.STRING,
         allowNull: false
     },
     amount: {
@@ -20,10 +20,6 @@ const Conversion = database.define('Conversion', {
     },
     usd: {
         type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    createdAt:{
-        type: DataTypes.DATE,
         allowNull: false
     }
 }, {
