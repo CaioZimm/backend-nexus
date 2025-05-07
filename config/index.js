@@ -22,6 +22,10 @@ app.get('/teste', (req, res) => {
 const authRoutes = require('../src/routes/authRoutes')
 app.use(authRoutes)
 
+// Rota - Conversão
+const conversionRoutes = require('../src/routes/conversionRoutes')
+app.use(conversionRoutes)
+
 const port = process.env.PORT;
 
 sequelize.authenticate()

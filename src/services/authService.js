@@ -1,9 +1,14 @@
 const authRepository = require('../repositories/authRepository')
+const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
 exports.registerUser = async (name, email, password) => {
-    const salt = await bcrypt.genSalt(12)
-    const passwordCrypt = await bcrypt.hash(password, salt)
+    const passwordCrypt = await bcrypt.hash(password, 10)
+
+    const userExists = await User.findOne({ where: { email } });
+    if (userExists) {
+        throw new Error('Este e-mail já está sendo usado');
+    }
 
     const newUser = {
         name,
@@ -13,12 +18,12 @@ exports.registerUser = async (name, email, password) => {
         updatedAt: Date.now()
     }
 
-    return await authRepository.login(newUser);
+    return await authRepository.register(newUser);
 }
 
 exports.loginUser = async (email, password) => {
     const user = await authRepository.login(email);
-
+    
     if(!user){
         throw new Error("Credenciais incorretas");
     }
