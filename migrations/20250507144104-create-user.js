@@ -15,10 +15,11 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING(150),
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       password: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(100),
         allowNull: false
       },
       createdAt: {
@@ -31,6 +32,7 @@ module.exports = {
       }
     });
   },
+  
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
   }
