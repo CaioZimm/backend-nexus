@@ -16,7 +16,7 @@ exports.login = async (email) => {
         const user = await User.findOne({ where: { email }});
 
         if (!user){
-            throw new Error('Usuário não encontrado')
+            throw new Error("Credenciais incorretas");
         }
 
         return user;

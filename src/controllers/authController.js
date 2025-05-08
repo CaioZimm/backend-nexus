@@ -26,7 +26,7 @@ exports.loginUser = async (req, res) => {
         const user = await authService.loginUser(email, password)
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        return res.status(200).json({ message: 'Logado com sucesso', token })
+        return res.status(200).json({ message: 'Logado com sucesso', token, data: user })
 
     } catch (error) {
         return res.status(401).json({ message: error.message })
