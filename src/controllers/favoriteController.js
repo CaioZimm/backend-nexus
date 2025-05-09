@@ -23,6 +23,11 @@ exports.toggleFavorite = async (req, res) => {
 exports.listFavorites = async (req, res) => {
     try {
         const favorites = await favoriteService.listFavorites(req.user.id);
+
+        if (!favorites || favorites.length === 0) {
+            return []
+        }
+
         return res.status(200).json({ message: 'List de favoritos: ', data: favorites })
 
     } catch (error) {

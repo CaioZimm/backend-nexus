@@ -1,6 +1,6 @@
 const authRepository = require('../repositories/authRepository')
 const User = require('../models/User')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 exports.registerUser = async (name, email, password, confirmPassword) => {
 
