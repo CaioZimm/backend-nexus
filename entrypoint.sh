@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ ! -f .env ]; then
   cp .env.example .env
   echo "Arquivo .env criado a partir de .env.example"
