@@ -20,22 +20,23 @@ app.get('/teste', (req, res) => {
 
 // Rota - Authenticate
 const authRoutes = require('../src/routes/authRoutes')
-app.use(authRoutes)
+app.use('/auth', authRoutes)
 
-// Rota - Conversão
+// Rota - Conversion
 const conversionRoutes = require('../src/routes/conversionRoutes')
 app.use(conversionRoutes)
 
-// Rota - Favoritos
+// Rota - Favorites
 const favoriteRoutes = require('../src/routes/favoriteRoutes')
 app.use(favoriteRoutes)
 
+const host = process.env.HOST  || '0.0.0.0';
 const port = process.env.PORT;
 sequelize.authenticate()
     .then(() => { 
         console.log("Conectados!"); 
-        app.listen(port, () => { 
-            console.log(`Servidor rodando na porta ${port}`);
+        app.listen(port, host , () => { 
+            console.log(`Servidor rodando na porta ${port} no endereço ${host}`);
         });
     })
     .catch((err) => {

@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
 const database = require('../../config/database');
+const { DataTypes } = require('sequelize');
 
 const Conversion = database.define('Conversion', {
     userId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     cryptoName: {

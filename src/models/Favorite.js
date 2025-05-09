@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
 const database = require('../../config/database');
+const { DataTypes } = require('sequelize');
 
 const Favorite = database.define('Favorite', {
     userId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     cryptoName: {

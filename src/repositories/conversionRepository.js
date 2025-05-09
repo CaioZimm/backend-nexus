@@ -7,7 +7,7 @@ exports.saveConversion = async (conversion) => {
         return newConversion
         
     } catch (error) {
-        throw new Error('Erro ao converter: ' + error.message);
+        throw new Error(error.message);
     }
 }
 
@@ -15,13 +15,9 @@ exports.getHistory = async (userId) => {
     try {
         const history = await Conversion.findAll({ where: { userId }, order: [['createdAt', 'DESC']]});
 
-        if (!history || history.length === 0) {
-            throw new Error('Sem histórico até o momento');
-        }
-
         return history;
 
     } catch (error) {
-        throw new Error('Erro ao acessar histórico: ' + error.message);
+        throw new Error(error.message);
     }
 }

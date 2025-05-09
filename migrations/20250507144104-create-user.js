@@ -6,8 +6,8 @@ module.exports = {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING(150),
@@ -19,16 +19,16 @@ module.exports = {
         unique: true
       },
       password: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(150),
         allowNull: false
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
   },

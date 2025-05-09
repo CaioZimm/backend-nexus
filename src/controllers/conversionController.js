@@ -3,11 +3,7 @@ const conversionService = require('../services/conversionService')
 exports.registerConversion = async (req, res) => {
     const { cryptoName, amount } = req.body
     const userId = req.user.id
-
-    if (!cryptoName || !amount) {
-        return res.status(400).json({ error: 'Informe uma moeda ou uma quantidade para conversão' });
-    }
-    
+ 
     try {
         const conversion = await conversionService.registerConversion(userId, cryptoName, amount)
         return res.status(201).json({ message: 'Consulta registrada', data: conversion })
@@ -23,6 +19,9 @@ exports.historyConversion = async (req, res) => {
         return res.status(200).json({ message: 'Histórico de conversões: ', data: history })
 
     } catch (error) {
-        return res.status(500).json({ error: error.message })
+        if (error.message === 'Sem histórico até o momento') {
+            return res.status(404).json({ error: error.message });
+        }
+        return res.status(500).json({ error: 'Erro ao acessar histórico de conversões.' });
     }
 }

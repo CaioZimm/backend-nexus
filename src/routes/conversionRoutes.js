@@ -1,6 +1,6 @@
-const express = require('express');
 const conversionController = require('../controllers/conversionController')
 const authMiddleware = require('../middlewares/authMiddleware');
+const express = require('express');
 const routes = express.Router()
 
 routes.post('/conversion', authMiddleware, conversionController.registerConversion);

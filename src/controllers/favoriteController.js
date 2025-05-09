@@ -1,6 +1,6 @@
 const favoriteService = require('../services/favoriteService')
 
-exports.getFavorites = async (req, res) => {
+exports.toggleFavorite = async (req, res) => {
     const { cryptoName } = req.body
     const userId = req.user.id;
 
@@ -9,11 +9,14 @@ exports.getFavorites = async (req, res) => {
     }
 
     try {
-        const favorite = await favoriteService.getFavorites(userId, cryptoName);
-        res.status(200).json({ message: favorite.favorited ? 'Adicionado aos favoritos' : 'Removido dos favoritos', data: favorite });
+        const favorite = await favoriteService.toggleFavorites(userId, cryptoName);
+        res.status(favorite.favorited ? 201 : 200 ).json(
+            {   message: favorite.favorited ? 'Adicionado aos favoritos' : 'Removido dos favoritos', 
+                data: favorite 
+            });
 
     } catch (error) {
-        return res.status(500).json({ error: error.message })
+        return res.status(400).json({ error: error.message })
     }
 }
 
@@ -23,6 +26,6 @@ exports.listFavorites = async (req, res) => {
         return res.status(200).json({ message: 'List de favoritos: ', data: favorites })
 
     } catch (error) {
-        return res.status(500).json({ error: error.message })
+        return res.status(400).json({ error: error.message })
     }
 }

@@ -10,11 +10,17 @@ module.exports = {
         primaryKey: true
       },
       userId: {
-        type: Sequelize.BIGINT,
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       cryptoName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false
       },
       amount: {
